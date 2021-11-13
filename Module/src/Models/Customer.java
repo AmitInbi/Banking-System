@@ -2,6 +2,7 @@ package Models;
 
 import java.util.Scanner;
 
+
 public class Customer extends Users implements UsersInteface{
     private int balance;
 
@@ -9,6 +10,14 @@ public class Customer extends Users implements UsersInteface{
         super(firstName, lastName);
         this.balance = balance;
     }
+
+    public Customer(int id, String firstName, String lastName, int balance) {
+        super(id, firstName, lastName);
+        this.balance = balance;
+    }
+
+
+    public Customer getCustomer(){ return this; }
 
     public int getBalance() {
         return balance;

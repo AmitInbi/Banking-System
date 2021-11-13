@@ -13,6 +13,13 @@ public class Users {
         this.lastName = lastName;
     }
 
+    public Users(int id, String firstName, String lastName) {
+        //auto increment id for every User
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
     public int getId() {
         return id;
     }
