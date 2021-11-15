@@ -1,26 +1,26 @@
 import Models.Customer;
 
-import jdk.swing.interop.SwingInterOpUtils;
+//import jdk.swing.interop.SwingInterOpUtils;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import java.io.*;
-import java.util.Iterator;
+//import java.util.Iterator;
 
 
 //import com.google.gson.*;
-////import com.google.gson.GsonBuilder;
+//import com.google.gson.GsonBuilder;
 //import com.google.gson.stream.JsonReader;
 
 import java.io.FileReader;
-import java.util.HashMap;
-import java.util.Iterator;
+//import java.util.HashMap;
+//import java.util.Iterator;
 
 public class API {
     public static Customer getCustomer(String id) throws IOException, ParseException {
-        // Parse JSON file to JSON objext
+        // Parse JSON file to JSON object
         JSONParser parser = new JSONParser();
         Object obj = parser.parse(new FileReader("Module/src/dbs/db_Customer.json"));
         JSONObject jsonObject = (JSONObject) obj;

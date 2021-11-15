@@ -4,16 +4,16 @@ import py4j.GatewayServer;
 
 public class py4j_EntryPoint {
 
-    private BankingSystem bankingsystem;
+    private API api;
 
 
     public py4j_EntryPoint(){
-        this.bankingsystem = new BankingSystem();
+        this.api = new API();
     }
 
     // Provide access to pre-configured Banking System
-    public BankingSystem getAPI(){
-        return this.bankingsystem;
+    public API getAPI(){
+        return this.api;
     }
 
     public static void main(String[] args){
