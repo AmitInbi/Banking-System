@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 from os import urandom
-import jsonify
+import json
 
 from py4j.java_gateway import JavaGateway
 
@@ -34,11 +34,15 @@ def LoginPage():
         from random import randrange
         session["user_id"] = randrange(3)  # To be pulled from DB when Logging in
 
-        # Create Customer Object
+        # Get Customer from DB as a json object
         gateway = JavaGateway()
         api = gateway.entry_point.getAPI()
         customer = api.getCustomer(str(session.get("user_id")))
-        session["customer"] = customer
+        session["customer"] = json.loads(str(customer.toJSON()))
+        print(session["customer"])
+        # session["customer"] = json.dumps(customer, default=lambda o: o._asdict, sort_keys=True, indent=4)
+        # session["customer"] = json.dumps(customer.__dict__)
+
         # # TODO: get user first and last name from DB (need to create getFirstName, getLastName JAVA methods)
         # # session["user_name"] = session["customer"].getFirstName + session["customer"].getLastName
         session["user_name"] = "NAME"  # Temp
@@ -54,7 +58,7 @@ def Deposit():
         session.get("customer").deposit(int(request.form['Deposit']))
         return redirect(url_for("Deposit"))
     else:
-        return render_template("Deposit.html", balance=session.get("customer").getBalance())
+        return render_template("Deposit.html", balance=session.get("customer")["balance"])
 
 
 if __name__ == '__main__':

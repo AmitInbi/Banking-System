@@ -1,5 +1,8 @@
 package Models;
 
+import org.json.simple.JSONObject;
+import org.json.simple.JSONArray;
+
 import java.util.Scanner;
 
 
@@ -45,6 +48,18 @@ public class Customer extends Users implements UsersInteface{
             return true;
         }
         return false;
+    }
+
+    public String toJSON(){
+//        JSONObject obj = new JSONObject();
+        JSONObject customer = new JSONObject();
+        customer.put("firstName", this.getFirstName());
+        customer.put("lastName", this.getLastName());
+        customer.put("balance", this.getBalance());
+
+//        obj.put(this.getId(), customer);
+//        return obj.toJSONString();
+        return customer.toString();
     }
 
     @Override
