@@ -5,7 +5,6 @@ import json
 from py4j.java_gateway import JavaGateway
 
 app = Flask(__name__)
-# SESSION_TYPE = 'redis'
 app.config['SECRET_KEY'] = urandom(16).hex()
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0  # stop app caching
 
@@ -29,7 +28,6 @@ def LoginPage():
         # TODO: verify username and password by checking hash values in database
         # TODO: when verifying return the id number of the user
         session["LoggedIn"] = True
-
         # Temporary: get random user by id
         from random import randrange
         session["user_id"] = randrange(3)  # To be pulled from DB when Logging in
@@ -40,12 +38,8 @@ def LoginPage():
         customer = api.getCustomer(str(session.get("user_id")))
         session["customer"] = json.loads(str(customer.toJSON()))
         print(session["customer"])
-        # session["customer"] = json.dumps(customer, default=lambda o: o._asdict, sort_keys=True, indent=4)
-        # session["customer"] = json.dumps(customer.__dict__)
 
-        # # TODO: get user first and last name from DB (need to create getFirstName, getLastName JAVA methods)
-        # # session["user_name"] = session["customer"].getFirstName + session["customer"].getLastName
-        session["user_name"] = "NAME"  # Temp
+        session["user_name"] = session.get("customer")["firstName"] + session.get("customer")["lastName"]
 
         return redirect(url_for("homePage"))
     else:
