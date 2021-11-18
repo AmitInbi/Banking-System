@@ -6,9 +6,10 @@
 {% endblock %}
 
 {% block body %}
-    <h3>Your current balance is: {{ balance }}) </h3></br>
+    <h3>Your current balance is: {{ balance }} </h3></br>
     <form method="POST">
         <label for="Deposit">Amount to Deposit:</label><br>
-        <input type="text" id="Deposit" name="Deposit"><br>
+        <input type="number" id="Deposit" name="Deposit"><br>
+        <input type="submit" value="Submit">
     </form>
 {% endblock %}

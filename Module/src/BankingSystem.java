@@ -17,7 +17,9 @@ public class BankingSystem{
 //        System.out.println(manager);
 //        System.out.println(polymorphism);
         try{
-            System.out.println(API.getCustomer("1"));
+            API api = new API();
+            api.createConnection(0);
+            System.out.println("success");
         } catch (Exception e){
             System.out.println(e);
         }

@@ -1,26 +1,27 @@
 package Models;
 
+
 public class Users {
     private static int idGen = 0;   //auto-increments id
-    private int id;
+    final private String id;
     private String firstName;
     private String lastName;
 
     public Users(String firstName, String lastName) {
         //auto increment id for every User
-        this.id = idGen++;
+        this.id = "" + idGen++;
         this.firstName = firstName;
         this.lastName = lastName;
     }
 
     public Users(int id, String firstName, String lastName) {
         //auto increment id for every User
-        this.id = id;
+        this.id = ""+id;
         this.firstName = firstName;
         this.lastName = lastName;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
@@ -47,5 +48,4 @@ public class Users {
 
 
     }
-
 }
