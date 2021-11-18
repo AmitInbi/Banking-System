@@ -8,6 +8,8 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = urandom(16).hex()
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0  # stop app caching
 
+# active_session = []
+
 
 @app.route("/", methods=["GET", "POST"])
 def homePage():
@@ -30,14 +32,15 @@ def LoginPage():
         session["LoggedIn"] = True
         # Temporary: get random user by id
         from random import randrange
-        session["user_id"] = randrange(3)  # To be pulled from DB when Logging in
+        session["user_id"] = randrange(3)
 
         # Get Customer from DB as a json object
         gateway = JavaGateway()
         api = gateway.entry_point.getAPI()
         customer = api.getCustomer(str(session.get("user_id")))
         session["customer"] = json.loads(str(customer.toJSON()))
-        print(session["customer"])
+        print(session.get("customer"))
+        print(type(session.get("customer")))
 
         session["user_name"] = session.get("customer")["firstName"] + session.get("customer")["lastName"]
 
@@ -49,9 +52,16 @@ def LoginPage():
 @app.route("/deposit", methods=["GET", "POST"])
 def Deposit():
     if request.method == "POST":
-        session.get("customer").deposit(int(request.form['Deposit']))
+        # session.get("customer").deposit(int(request.form['Deposit']))
+        gateway = JavaGateway()
+        api = gateway.entry_point.getAPI()
+        customer = api.getCustomer(str(session.get("user_id")))
+        customer.deposit(int(request.form['Deposit']))
+        session["customer"] = json.loads(str(customer.toJSON()))
         return redirect(url_for("Deposit"))
     else:
+        # return render_template("Deposit.html", balance=session.get("customer")["balance"])
+        print(type(session.get("customer")))
         return render_template("Deposit.html", balance=session.get("customer")["balance"])
 
 
