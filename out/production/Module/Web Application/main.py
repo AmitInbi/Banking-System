@@ -57,7 +57,7 @@ def Deposit():
         active_session.customerDeposit(int(request.form['Deposit']))
         return redirect(url_for("Deposit"))
     else:
-        return render_template("Deposit.html", balance=int(active_session.getCustomerBalance()))
+        return render_template("Deposit.html", balance=active_session.getCustomerBalance())
 
 
 if __name__ == '__main__':

@@ -1,1 +1,1 @@
-{"0":[{"firstName":"Hello","lastName":"World","balance":"1000"}],"1":[{"firstName":"Mike","lastName":"Tyson","balance":"2000"}],"2":[{"firstName":"John","lastName":"Legend","balance":"2000"}]}
+{"0":{"firstName":"Hello","lastName":"World","balance":1000},"1":{"firstName":"Mike","lastName":"Tyson","balance":2100},"2":{"firstName":"John","lastName":"Legend","balance":2000}}

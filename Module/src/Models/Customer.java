@@ -9,14 +9,14 @@ import java.util.Scanner;
 
 
 public class Customer extends Users implements UsersInterface {
-    private int balance;
+    private long balance;
 
-    public Customer(String firstName, String lastName, int balance) {
+    public Customer(String firstName, String lastName, long balance) {
         super(firstName, lastName);
         this.balance = balance;
     }
 
-    public Customer(int id, String firstName, String lastName, int balance) {
+    public Customer(int id, String firstName, String lastName, long balance) {
         super(id, firstName, lastName);
         this.balance = balance;
     }
@@ -24,7 +24,7 @@ public class Customer extends Users implements UsersInterface {
 
     public Customer getCustomer(){ return this; }
 
-    public int getBalance() {
+    public long getBalance() {
         return balance;
     }
 
@@ -38,7 +38,7 @@ public class Customer extends Users implements UsersInterface {
     public boolean withdraw(int money) {
         Scanner s = new Scanner(System.in);
         char ans = 'Y';
-        int sum = this.balance - money;
+        long sum = this.balance - money;
         if (sum < 0)
             {
                 System.out.println("Are you sure you want to withdraw? [Y/N] \nBalance after withdrawal: "+sum);
