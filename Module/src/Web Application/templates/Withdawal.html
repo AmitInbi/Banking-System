@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+
+{% block head %}
+    <title>Withdrawal</title>
+{% endblock %}
+
+{% block body %}
+    <h3>Your current balance is: {{ balance }} </h3></br>
+    <form method="POST">
+        <label for="Withdraw">Amount to Deposit:</label><br>
+        <input type="number" id="Withdraw" name="Withdraw"><br>
+        <input type="submit" value="Submit">
+    </form>
+{% endblock %}

@@ -1,15 +1,22 @@
 package Models;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
 import java.util.Scanner;
 
 
 public class Customer extends Users implements UsersInterface {
     private long balance;
+    private List<String> opLog = new ArrayList<>();
+
 
     public Customer(String firstName, String lastName, long balance) {
         super(firstName, lastName);
@@ -21,35 +28,56 @@ public class Customer extends Users implements UsersInterface {
         this.balance = balance;
     }
 
-
     public Customer getCustomer(){ return this; }
 
-    public long getBalance() {
-        return balance;
+    public long getBalance() { return this.balance; }
+
+    public String[] getOpLog() {
+        String[] arr = new String[this.opLog.size()];
+        for (int i = 0; i < arr.length; i++) { arr[i] = this.opLog.get(i); }
+        return arr; 
     }
 
     //deposits money.
-    public boolean deposit(int money) {
-        this.balance += money;
+    public boolean deposit(int amount) {
+        this.balance += amount;
+        this.opLog.add(super.getTimeStamp() + ":deposit:" + amount);
         updateDB();
         return true;
     }
+
+    /** withdraws money. doesn't set warning but fails to withdraw funds if there is insufficient amount
+    @param amount: amount of money to withdraw
+    @return true if withdrawal is successful, false otherwise
+    **/
+    public boolean simpleWithdraw(int amount) {
+        // Check if there are sufficient funds to withdraw
+        if(this.balance - amount > 0) {
+            this.balance -= amount;
+            this.opLog.add(super.getTimeStamp() + ":withdraw:" + amount);
+            updateDB();
+            return true;
+        } else {
+            this.opLog.add(super.getTimeStamp() + ":FAILED_Withdraw:" + amount);
+            return false;
+        }
+
+    }
+
     //withdraws money. if balance reaches below 0, sets a warning.
     public boolean withdraw(int money) {
         Scanner s = new Scanner(System.in);
         char ans = 'Y';
         long sum = this.balance - money;
-        if (sum < 0)
-            {
+        if (sum < 0) {
                 System.out.println("Are you sure you want to withdraw? [Y/N] \nBalance after withdrawal: "+sum);
                 ans = s.nextLine().toUpperCase().charAt(0);       //Saves the first char of user answer and makes it uppercase
-            }
+        }
         if (ans == 'Y') {
             this.balance -= money;
+            updateDB();
             return true;
         }
-
-        updateDB();
         return false;
     }
 
@@ -60,6 +88,7 @@ public class Customer extends Users implements UsersInterface {
         customer.put("firstName", this.getFirstName());
         customer.put("lastName", this.getLastName());
         customer.put("balance", this.getBalance());
+        customer.put("opLog", this.getOpLog());
         return customer;
     }
 

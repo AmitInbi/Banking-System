@@ -1,6 +1,9 @@
 package Models;
 
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 public class Users {
     private static int idGen = 0;   //auto-increments id
     final private String id;
@@ -39,6 +42,12 @@ public class Users {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public String getTimeStamp() {
+//        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
+//        return timeStamp;
+        return new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
     }
 
     @Override

@@ -23,11 +23,6 @@ public class API {
 
         JSONObject customer_asJSONObject = (JSONObject) jsonObject.get(id);
 
-//        // Get Customer by id as JSONArray
-//        JSONArray customer_asJSONArray = (JSONArray) jsonObject.get(id);
-//        // Convert customer of type JSONArray to type JSONObject
-//        JSONObject customer_asJSONObject = (JSONObject) customer_asJSONArray.get(0);
-
         this.customer = new Customer(
                 ID,
                 (String)customer_asJSONObject.get("firstName"),
@@ -41,5 +36,9 @@ public class API {
     public String getCustomerName() { return this.customer.getFirstName() + " " + this.customer.getLastName(); }
 
     public void customerDeposit(int amount) { this.customer.deposit(amount); }
+
+    public void customerWithdrawal(int amount) { this.customer.simpleWithdraw(amount); }
+
+    public String[] getCustomerOpLog() { return this.customer.getOpLog(); }
 
 }

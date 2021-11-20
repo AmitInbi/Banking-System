@@ -60,6 +60,20 @@ def Deposit():
         return render_template("Deposit.html", balance=active_session.getCustomerBalance())
 
 
+@app.route("/withdraw", methods=["GET", "POST"])
+def Withdraw():
+    if request.method == "POST":
+        active_session.customerWithdrawal(int(request.form['Deposit']))
+        return redirect(url_for("Withdraw"))
+    else:
+        return render_template("Deposit.html", balance=active_session.getCustomerBalance())
+
+
+@app.route("/Operations_Log", methods=["GET", "POST"])
+def opLog():
+    return render_template("opLog.html", opLog=list(active_session.getCustomerOpLog()))
+
+
 if __name__ == '__main__':
     print("Initializing app")
     app.run(debug=True)

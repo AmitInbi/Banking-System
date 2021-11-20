@@ -1,1 +1,1 @@
-{"0":{"firstName":"Hello","lastName":"World","balance":1190},"1":{"firstName":"Mike","lastName":"Tyson","balance":2100},"2":{"firstName":"John","lastName":"Legend","balance":2000}}
+{"0":{"firstName":"Hello","lastName":"World","opLog":[Ljava.lang.String;@149b5c7e,"balance":11000},"1":{"firstName":"Mike","lastName":"Tyson","balance":2100},"2":{"firstName":"John","lastName":"Legend","balance":2000}}
