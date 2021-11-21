@@ -16,14 +16,15 @@ public class BankingSystem{
 //        System.out.println(cust3);
 //        System.out.println(manager);
 //        System.out.println(polymorphism);
-        try{
-            API api = new API();
-            api.createConnection(0);
-            System.out.println("success");
-        } catch (Exception e){
-            System.out.println(e);
-        }
-
-
+//        try{
+//            API api = new API();
+//            api.createConnection(0);
+//            System.out.println("success");
+//        } catch (Exception e){
+//            System.out.println(e);
+//        }
+    Customer cust = new Customer(3, "Idan", "Cohen", 5327);
+    cust.deposit(173);
+    cust.deposit(1000);
     }
 }

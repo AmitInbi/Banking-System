@@ -6,17 +6,13 @@ import org.json.simple.parser.JSONParser;
 
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 import java.util.Scanner;
 
 
 public class Customer extends Users implements UsersInterface {
     private long balance;
-    private List<String> opLog = new ArrayList<>();
-
 
     public Customer(String firstName, String lastName, long balance) {
         super(firstName, lastName);
@@ -32,39 +28,41 @@ public class Customer extends Users implements UsersInterface {
 
     public long getBalance() { return this.balance; }
 
-    public String[] getOpLog() {
-        String[] arr = new String[this.opLog.size()];
-        for (int i = 0; i < arr.length; i++) { arr[i] = this.opLog.get(i); }
-        return arr; 
-    }
-
-    //deposits money.
+    /** Deposit money to the account and update DB.
+     @param amount: amount of money to withdraw from account.
+     @return true if deposit is successful.
+     **/
     public boolean deposit(int amount) {
         this.balance += amount;
-        this.opLog.add(super.getTimeStamp() + ":deposit:" + amount);
+        opLog_add("" + super.getTimeStamp() + ":deposit:" + amount);
         updateDB();
         return true;
     }
 
     /** withdraws money. doesn't set warning but fails to withdraw funds if there is insufficient amount
-    @param amount: amount of money to withdraw
+     * Updates DB if withdrawal is successful
+     @param amount: amount of money to withdraw from account.
     @return true if withdrawal is successful, false otherwise
     **/
     public boolean simpleWithdraw(int amount) {
         // Check if there are sufficient funds to withdraw
         if(this.balance - amount > 0) {
             this.balance -= amount;
-            this.opLog.add(super.getTimeStamp() + ":withdraw:" + amount);
+            opLog_add(super.getTimeStamp() + ":withdraw:" + amount);
             updateDB();
             return true;
         } else {
-            this.opLog.add(super.getTimeStamp() + ":FAILED_Withdraw:" + amount);
+            opLog_add(super.getTimeStamp() + ":FAILED_Withdraw:" + amount);
             return false;
         }
-
     }
 
-    //withdraws money. if balance reaches below 0, sets a warning.
+    /** Withdraws money. if balance reaches below 0, asks for confirmation.
+     * Updates DB if withdrawal is successful
+     * This method is Java oriented since the confirmation is requested via terminal.
+     * @param money: amount of money to withdraw from account.
+     * @return true if withdrawal is successful, false otherwise
+     */
     public boolean withdraw(int money) {
         Scanner s = new Scanner(System.in);
         char ans = 'Y';
@@ -81,14 +79,23 @@ public class Customer extends Users implements UsersInterface {
         return false;
     }
 
-    // Return JSONObject from customer
+    /** Return JSONObject from customer
+     * containing all firstName, lastName, balance and opLog fields
+     * @param
+     * @return JSONObject
+     */
     @Override
     public JSONObject toJSON(){
         JSONObject customer = new JSONObject();
         customer.put("firstName", this.getFirstName());
         customer.put("lastName", this.getLastName());
         customer.put("balance", this.getBalance());
-        customer.put("opLog", this.getOpLog());
+
+        // Get opLog as String[] and cast to JSONArray
+        JSONArray jsArray = new JSONArray();
+        for (int i = 0; i < this.getOpLog().length; i++) { jsArray.add(this.getOpLog()[i]); }
+        customer.put("opLog", jsArray);
+
         return customer;
     }
 
