@@ -46,7 +46,7 @@ public class Customer extends Users implements UsersInterface {
     **/
     public boolean simpleWithdraw(int amount) {
         // Check if there are sufficient funds to withdraw
-        if(this.balance - amount > 0) {
+        if(this.balance - amount >= 0) {
             this.balance -= amount;
             opLog_add(super.getTimeStamp() + ":withdraw:" + amount);
             updateDB();
