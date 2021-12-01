@@ -6,12 +6,16 @@
 {% endblock %}
 
 {% block body %}
-    <form method="POST">
+    <div class="container" style="position: absolute; left: 50%; margin-left: -100px">
+        <p><strong><u>Sign in:</u></strong></p>
+        <form method="POST">
         <label for="username">Username:</label><br>
         <input type="text" id="username" name="username"><br>
         <label for="password">Password:</label><br>
-        <input type="text" id="password" name="password"><br>
+        <input type="text" id="password" name="password"><br><br>
         <input type="submit" value="Submit">
     </form>
+    </div>
+
 
 {% endblock %}

@@ -8,6 +8,8 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = urandom(16).hex()
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0  # stop app caching
 
+
+
 # Loads the JAVA API class for managing the connection to the JAVA server back-end
 active_session = None
 
