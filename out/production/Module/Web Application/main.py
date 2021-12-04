@@ -65,10 +65,10 @@ def Deposit():
 @app.route("/withdraw", methods=["GET", "POST"])
 def Withdraw():
     if request.method == "POST":
-        active_session.customerWithdrawal(int(request.form['Deposit']))
+        active_session.customerWithdrawal(int(request.form['Withdraw']))
         return redirect(url_for("Withdraw"))
     else:
-        return render_template("Deposit.html", balance=active_session.getCustomerBalance())
+        return render_template("Withdrawal.html", balance=active_session.getCustomerBalance())
 
 
 @app.route("/Operations_Log", methods=["GET", "POST"])

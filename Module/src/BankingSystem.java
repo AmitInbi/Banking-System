@@ -23,8 +23,12 @@ public class BankingSystem{
 //        } catch (Exception e){
 //            System.out.println(e);
 //        }
-    Customer cust = new Customer(3, "Idan", "Cohen", 5327);
-    cust.deposit(173);
-    cust.deposit(1000);
+//    Customer cust = new Customer(3, "Idan", "Cohen", 5327);
+//    cust.deposit(173);
+//    cust.deposit(1000);
+    Manager man = new Manager("John", "Cohen");
+        /*System.out.println(man.getCustomerById(0));*/
+        man.getCustomerByName("Idan");
+
     }
 }

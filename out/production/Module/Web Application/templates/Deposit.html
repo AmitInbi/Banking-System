@@ -3,13 +3,19 @@
 
 {% block head %}
     <title>Deposit</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/home_styles.css') }}">
 {% endblock %}
 
 {% block body %}
     <h3>Your current balance is: {{ balance }} </h3></br>
     <form method="POST">
         <label for="Deposit">Amount to Deposit:</label><br>
-        <input type="number" id="Deposit" name="Deposit"><br>
+        <input type="number" id="deposit" name="Deposit"><br><br>
         <input type="submit" value="Submit">
     </form>
+    <script>
+        document.getElementById("nav_withdraw").classList.remove('active')
+        document.getElementById("nav_log").classList.remove('active')
+        document.getElementById("nav_deposit").classList.add('active')
+    </script>
 {% endblock %}
