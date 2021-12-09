@@ -1,6 +1,6 @@
 //This is a shared project by Amit Inbar and Itay Grinberg
 
-#about
+# about
 
 This project will create a Virtual Banking branch using Java & Python with the ability to:
 * Login to your account with password validation.
@@ -9,7 +9,7 @@ This project will create a Virtual Banking branch using Java & Python with the a
 * Create new customers. 
 * Many more banking applications.
 
-#Implementation
+# Implementation
 
 The project is implemented using:
 * Python-Flask as a web-GUI for all user operations (including html and minimal css).
@@ -18,7 +18,7 @@ The project is implemented using:
 * DB's implemented using JSON files updated for every operation.
 
 
-#Usage:
+# Usage:
 
 To use the Banking System please make sure to run both:
 Module/src/py4j_EntryPoint.java  ->  For the Java side PY4J entrypoint and API connection.
