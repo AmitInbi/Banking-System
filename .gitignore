@@ -1,6 +1,6 @@
 # ignore db's to avoid git conflicts
-*.db
-dbs/
+# *.db
+# dbs/
 Module/src/dbs/
 
 # User-specific stuff
