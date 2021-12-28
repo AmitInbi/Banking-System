@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+
+{% block head %}
+    <title>Operations Log</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/home_styles.css') }}">
+{% endblock %}
+
+{% block body %}
+    <h3>All your previous operations in this accounts are: </h3></br>
+    {% for op in opLog %}
+        {{op}}</br>
+    {% endfor %}
+{% endblock %}
