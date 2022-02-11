@@ -44,7 +44,7 @@ public class API {
 
     public String[] getCustomerOpLog() { return this.customer.getOpLog(); }
 
-    public boolean valPass(String username, String pw2val) throws IOException, ParseException {
+    public int valPass(String username, String pw2val) throws IOException, ParseException {
         return this.auth.validatePW(username, pw2val);
     }
 }

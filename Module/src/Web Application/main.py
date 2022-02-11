@@ -9,7 +9,6 @@ app.config['SECRET_KEY'] = urandom(16).hex()
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0  # stop app caching
 
 
-
 # Loads the JAVA API class for managing the connection to the JAVA server back-end
 active_session = None
 
@@ -34,21 +33,28 @@ def LoginPage():
 
         # TODO: verify username and password by checking hash values in database
         # TODO: when verifying return the id number of the user
-        global LoggedIn
-        LoggedIn = True
-        # Temporary: get random user by id
-        from random import randrange
-        session["user_id"] = randrange(3)
-
         # initialize active_session api from JavaGateway ()
         gateway = JavaGateway()
         api = gateway.entry_point.getAPI()
         # loads active_session as a global variable and inserts api object
         global active_session
         active_session = api
-        active_session.createConnection(session.get("user_id"))
 
-        return redirect(url_for("homePage"))
+        session["user_id"] = active_session.valPass(username, password)
+
+        if session["user_id"] != 1:
+            active_session.createConnection(session.get("user_id"))
+            global LoggedIn
+            LoggedIn = True
+            return redirect(url_for("homePage"))
+        else:
+            return redirect(url_for("LoginPage"))
+
+        # Temporary: get random user by id
+        # from random import randrange
+        # session["user_id"] = randrange(3)
+        # active_session.createConnection(session.get("user_id"))
+
     else:
         return render_template("login_page.html")
 
