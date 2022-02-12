@@ -40,10 +40,12 @@ def LoginPage():
         global active_session
         active_session = api
 
-        session["user_id"] = active_session.valPass(username, password)
+        session["user_id"] = int(active_session.valPass(username, password))
 
-        if session["user_id"] != 1:
+        if session["user_id"] != -1:
+            print("user_id = " + str(session["user_id"]))
             active_session.createConnection(session.get("user_id"))
+            print("LOC2")
             global LoggedIn
             LoggedIn = True
             return redirect(url_for("homePage"))
