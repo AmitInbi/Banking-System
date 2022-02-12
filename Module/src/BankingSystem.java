@@ -1,3 +1,4 @@
+import Models.Auth;
 import Models.Customer;
 import Models.Manager;
 import Models.Users;
@@ -26,9 +27,15 @@ public class BankingSystem{
 //    Customer cust = new Customer(3, "Idan", "Cohen", 5327);
 //    cust.deposit(173);
 //    cust.deposit(1000);
-    Manager man = new Manager("John", "Cohen");
-        /*System.out.println(man.getCustomerById(0));*/
-        man.getCustomerByName("Idan");
-
+//    Manager man = new Manager("John", "Cohen");
+//        /*System.out.println(man.getCustomerById(0));*/
+//        man.getCustomerByName("Idan");
+        Auth auth = new Auth();
+        try {
+            auth.validatePW("HelloWorld", "00000");
+        } catch (Exception e) {
+            System.out.println("error");
+            return;
+        }
     }
 }
