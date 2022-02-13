@@ -11,4 +11,10 @@
     {% for op in opLog %}
         {{op}}</br>
     {% endfor %}
+
+    <script>
+        document.getElementById("nav_withdraw").classList.remove('active')
+        document.getElementById("nav_log").classList.add('active')
+        document.getElementById("nav_deposit").classList.remove('active')
+    </script>
 {% endblock %}
