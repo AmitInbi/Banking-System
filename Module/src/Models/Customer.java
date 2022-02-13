@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Scanner;
 
 
-public class Customer extends Users implements UsersInterface {
+public class Customer extends Users {
     private long balance;
 
     public Customer(String firstName, String lastName, long balance) {
@@ -22,6 +22,12 @@ public class Customer extends Users implements UsersInterface {
     public Customer(int id, String firstName, String lastName, long balance) {
         super(id, firstName, lastName);
         this.balance = balance;
+    }
+
+    public Customer(int id, String firstName, String lastName, long balance, List<String> opLog) {
+        super(id, firstName, lastName);
+        this.balance = balance;
+        this.opLog = opLog;
     }
 
     public Customer getCustomer(){ return this; }
@@ -35,7 +41,7 @@ public class Customer extends Users implements UsersInterface {
     public boolean deposit(int amount) {
         this.balance += amount;
         opLog_add("" + super.getTimeStamp() + ":deposit:" + amount);
-        updateDB();
+        updateDB("Module/src/dbs/db_Customer.json");
         return true;
     }
 
@@ -49,7 +55,7 @@ public class Customer extends Users implements UsersInterface {
         if(this.balance - amount >= 0) {
             this.balance -= amount;
             opLog_add(super.getTimeStamp() + ":withdraw:" + amount);
-            updateDB();
+            super.updateDB("Module/src/dbs/db_Customer.json");
             return true;
         } else {
             opLog_add(super.getTimeStamp() + ":FAILED_Withdraw:" + amount);
@@ -73,10 +79,20 @@ public class Customer extends Users implements UsersInterface {
         }
         if (ans == 'Y') {
             this.balance -= money;
-            updateDB();
+            updateDB("Module/src/dbs/db_Customer.json");
             return true;
         }
         return false;
+    }
+
+    /**
+     * Add an opLog event and save it to db_Customer
+     * @param op
+     */
+    @Override
+    public void opLog_add(String op) {
+        this.opLog.add(op);
+        super.updateDB("Module/src/dbs/db_Customer.json");
     }
 
     /** Return JSONObject from customer
@@ -103,27 +119,5 @@ public class Customer extends Users implements UsersInterface {
     public String toString() {
         return super.toString()
                 +"   Balance:"+getBalance();
-    }
-
-    // Method calls customer_db and updates it with the updated data
-    @Override
-    public boolean updateDB(){
-        try {
-            //  Parse JSON file to JSON object
-            JSONParser parser = new JSONParser();
-            Object obj = parser.parse(new FileReader("Module/src/dbs/db_Customer.json"));
-            JSONObject jsonObject = (JSONObject) obj;
-
-            // Remove current customer and load new one to the jsonObject
-            jsonObject.remove(this.getId());
-            jsonObject.put(this.getId(), this.toJSON());
-
-            // Write updated jsonObject to db_Customer
-            FileWriter file = new FileWriter("Module/src/dbs/db_Customer.json");
-            file.write(jsonObject.toJSONString());
-            file.flush();
-            return true;
-
-        } catch (Exception e){ return false; }
     }
 }

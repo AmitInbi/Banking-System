@@ -7,7 +7,7 @@ import java.io.IOException;
 
 
 public interface UsersInterface {
-    public boolean updateDB() throws IOException, ParseException;
+    public boolean updateDB(String db) throws IOException, ParseException;
 
     public JSONObject toJSON();
 

@@ -10,6 +10,8 @@ import org.json.simple.parser.ParseException;
 import java.io.*;
 
 import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class API {
@@ -30,9 +32,9 @@ public class API {
                 ID,
                 (String)customer_asJSONObject.get("firstName"),
                 (String)customer_asJSONObject.get("lastName"),
-                (long) customer_asJSONObject.get("balance"));
+                (long) customer_asJSONObject.get("balance"),
+                (JSONArray) customer_asJSONObject.get("opLog"));
     }
-
 
     public long getCustomerBalance() { return this.customer.getBalance(); }
 
